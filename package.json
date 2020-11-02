@@ -18,9 +18,11 @@
   },
   "homepage": "https://github.com/Mykhailoiskra/goit-js-hw-12-countries-parcel#readme",
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "pnotify": "^5.1.2"
   },
   "devDependencies": {
+    "@pnotify/core": "^5.1.2",
     "parcel-plugin-handlebars-precompile": "^1.0.2"
   }
 }

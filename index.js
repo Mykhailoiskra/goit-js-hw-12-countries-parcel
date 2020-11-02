@@ -3,8 +3,15 @@ import getRefs from './js/getRefs.js';
 import debounce from 'lodash.debounce';
 import searchListTpl from './templates/searchListTpl.hbs';
 import countryProfileTpl from './templates/countryProfileTpl.hbs';
+import '@pnotify/core/dist/BrightTheme.css';
+import '@pnotify/core/dist/PNotify.css';
+import { error } from '@pnotify/core';
+import './main.css';
+
 
 const refs = getRefs();
+
+
 
 refs.inputField.addEventListener('input', debounce(onSearch, 500),);
 
@@ -17,7 +24,7 @@ function onSearch(e) {
 
 function validator (searchResult) {
     if (searchResult.length > 10) {
-    console.log('too many options');
+        error({text: "Too many matches found. Please enter a more specific query", animation: 'fade', hide: true, delay: 2000})
     } else if (searchResult.length < 10 && searchResult.length > 1) {
         console.log('Ok, lets parse some options');
         renderCountriesList(searchResult);
