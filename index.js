@@ -18,18 +18,16 @@ refs.inputField.addEventListener('input', debounce(onSearch, 500),);
 function onSearch(e) {
     const searchQuery = e.target.value;
     
-    if (searchQuery === '') { refs.resultsOutput.innerHTML = '';} else { API.fetchCountriesByName(searchQuery).then(validator); }
+    if (searchQuery === '') { refs.resultsOutput.innerHTML = '';} else { API.fetchCountriesByName(searchQuery).then(validator).catch(console.log("Error! You entered fucking shite")) }
 
 }
 
-function validator (searchResult) {
-    if (searchResult.length > 10) {
+function validator(searchResult) {
+     if (searchResult.length > 10) {
         error({text: "Too many matches found. Please enter a more specific query", animation: 'fade', hide: true, delay: 2000})
     } else if (searchResult.length < 10 && searchResult.length > 1) {
-        console.log('Ok, lets parse some options');
         renderCountriesList(searchResult);
     } else {
-        console.log('Ok, one option, parse the country sheet')
         renderCountryProfile(searchResult);
     }
 }
