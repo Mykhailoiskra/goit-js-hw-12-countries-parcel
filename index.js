@@ -18,12 +18,12 @@ refs.inputField.addEventListener('input', debounce(onSearch, 500),);
 function onSearch(e) {
     const searchQuery = e.target.value;
     
-    if (searchQuery === '') { refs.resultsOutput.innerHTML = '';} else { API.fetchCountriesByName(searchQuery).then(validator).catch(console.log("Error! You entered fucking shite")) }
+    if (searchQuery === '') { refs.resultsOutput.innerHTML = '';} else { API.fetchCountriesByName(searchQuery).then(validator).catch(onFetchError) }
 
 }
 
 function validator(searchResult) {
-     if (searchResult.length > 10) {
+    if (searchResult.length > 10) { 
         error({text: "Too many matches found. Please enter a more specific query", animation: 'fade', hide: true, delay: 2000})
     } else if (searchResult.length < 10 && searchResult.length > 1) {
         renderCountriesList(searchResult);
@@ -42,4 +42,8 @@ function renderCountryProfile(country) {
     const wrapper = country[0];
     const countryProfileMarkup = countryProfileTpl(wrapper);
     refs.resultsOutput.innerHTML = countryProfileMarkup;
+}
+
+function onFetchError(err) {
+    error({text: "No matches found. Please enter a more specific query", animation: 'fade', hide: true, delay: 2000})
 }
